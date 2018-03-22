@@ -1,8 +1,6 @@
 // //Bo's exercises
 // # love me - not love me game
-TEST AGAIN AND AGAIN
 // Given a flower with N petals, print the love me and not love me by petals
-
 // Example, a flower have 5 petals, output:
 
 // ```
@@ -13,6 +11,17 @@ TEST AGAIN AND AGAIN
 // Love me
 // ```
 
+var petals = prompt("How many petals are there on your flower?");
+for (i=petals; i>=0; i--) {
+ switch (i%2 ===0) {
+ 	case (true):
+ 		console.log(i + ' - Love me');
+ 		break;
+ 	case (false):
+ 		console.log(i + ' - Not love me');
+ 		break;d
+ 	}
+};
 
 
 
