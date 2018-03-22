@@ -24,11 +24,6 @@ for (i=petals; i>=0; i--) {
 };
 
 
-
-
-
-
-
 // ## Build a 2d array
 
 // Generate a 2-dimension array with the following shape:
@@ -45,6 +40,30 @@ for (i=petals; i>=0; i--) {
 //   [ 9, 18, 27, 36, 45, 54, 63, 72, 81, 90 ],
 //   [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 ] ]
 // ```
+
+
+
+superArray = (rows, columns) => {
+  var arr = [];
+  for (var i=0;i<rows;i++) {
+     	arr[i] = [];
+     	for (var j=0; j<columns; j++){
+  			arr[i][j] = ((i+1)*(j+1));
+  		};
+  };
+  return arr;
+}
+
+let userRows = prompt("How many rows?"); //10 in the example
+let userColumns = prompt("How many columns?"); //10 in the example
+var json = { ...superArray(userRows, userColumns)};
+
+
+
+
+
+
+
 // ## Student Score
 
 // The professor records the scores of every student in each test. The record has following format:
