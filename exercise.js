@@ -1,6 +1,6 @@
 // //Bo's exercises
 // # love me - not love me game
-TEST
+TEST AGAIN AND AGAIN
 // Given a flower with N petals, print the love me and not love me by petals
 
 // Example, a flower have 5 petals, output:
