@@ -58,12 +58,6 @@ let userRows = prompt("How many rows?"); //10 in the example
 let userColumns = prompt("How many columns?"); //10 in the example
 var json = { ...superArray(userRows, userColumns)};
 
-
-
-
-
-
-
 // ## Student Score
 
 // The professor records the scores of every student in each test. The record has following format:
@@ -83,24 +77,51 @@ var json = { ...superArray(userRows, userColumns)};
 // For example:
 
 // ```javascript
-// var exampleScores = [
-//     { test: 1, name: 'John', age: 27, gender: 'male', score: 90 },
-//     { test: 1, name: 'Oliver', age: 27, gender: 'male', score: 75 },
-//     { test: 1, name: 'Harry', age: 27, gender: 'male', score: 85 },
-//     { test: 2, name: 'John', age: 27, gender: 'male', score: 98 },
-//     { test: 2, name: 'Oliver', age: 27, gender: 'male', score: 100 },
-//     { test: 2, name: 'Harry', age: 27, gender: 'male', score: 87 },
-// ]
+
+
+var exampleScores = [
+    { test: 1, name: 'John', age: 27, gender: 'male', score: 90 },
+    { test: 1, name: 'Oliver', age: 27, gender: 'male', score: 75 },
+    { test: 1, name: 'Harry', age: 27, gender: 'male', score: 85 },
+    { test: 2, name: 'John', age: 27, gender: 'male', score: 98 },
+    { test: 2, name: 'Oliver', age: 27, gender: 'male', score: 100 },
+    { test: 2, name: 'Harry', age: 27, gender: 'male', score: 87 },
+];
 // ```
 
 // ### Question 1
 
 // Calculate the overall average score
 
+findAverage = (array) => {
+	let total = 0;
+	array.forEach(x => total += x);
+	return total/(array.length);
+} 
+
+fillArray = (array) => {
+	let filledArray = [];
+	for (i=0; i<exampleScores.length; i++) {
+		filledArray[i] = array[i].score;
+	}
+	return filledArray;
+}
+
+var scoresArray = fillArray(exampleScores);
+findAverage(scoresArray); //89.1666666...
+
+
+
+
 // ### Question 2
 
 // Calculate the overall average score for all male student
 
+var maleScoresArray = 
+	fillArray(exampleScores
+		.filter(student => student.gender = 'male')
+	);
+findAverage(maleScoresArray);
 // ### Question 3
 
 // Calculate the average score for each test
