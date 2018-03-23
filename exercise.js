@@ -1,33 +1,27 @@
 // //Bo's exercises
 // # love me - not love me game
 // Given a flower with N petals, print the love me and not love me by petals
-// Example, a flower have 5 petals, output:
 
-// ```
-// Love me
-// Not love me
-// Love me
-// Not love me
-// Love me
-// ```
+flowerLove = () => {
+  let petals = prompt("How many petals are there on your flower?");
+  for (i=petals; i>=0; i--) {
+   switch (i%2 ===0) {
+   	case (true):
+   		console.log(i + ' - Love me');
+   		break;
+   	case (false):
+   		console.log(i + ' - Not love me');
+   		break;
+   	}
+  };
+}
+// Issue here: whatever the number of petals, the issue doesn't change (a happy ending).
+console.log(flowerLove());
 
-var petals = prompt("How many petals are there on your flower?");
-for (i=petals; i>=0; i--) {
- switch (i%2 ===0) {
- 	case (true):
- 		console.log(i + ' - Love me');
- 		break;
- 	case (false):
- 		console.log(i + ' - Not love me');
- 		break;d
- 	}
-};
 
 
 // ## Build a 2d array
-
 // Generate a 2-dimension array with the following shape:
-
 // ```json
 // [ [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
 //   [ 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 ],
@@ -42,11 +36,14 @@ for (i=petals; i>=0; i--) {
 // ```
 
 
-
+// Create a matrix array with x rows and y columns.
 superArray = (rows, columns) => {
   var arr = [];
   for (var i=0;i<rows;i++) {
-     	arr[i] = [];
+     	// The first loop creates the "rows" (empty arrays).
+      arr[i] = [];
+      // The second loop fills them with the correct values given the
+      // numbers of rows and columns.
      	for (var j=0; j<columns; j++){
   			arr[i][j] = ((i+1)*(j+1));
   		};
@@ -54,30 +51,21 @@ superArray = (rows, columns) => {
   return arr;
 }
 
-let userRows = prompt("How many rows?"); //10 in the example
-let userColumns = prompt("How many columns?"); //10 in the example
-var json = { ...superArray(userRows, userColumns)};
-console.log(json);
+//Turn a given array into a JSON.
+bosMatrix = (array) => {
+  let json = { ...array};
+  return json;
+}
+
+// Re-create the example 10x10 matrix and turn it into a JSON, 
+// then log it.
+const exampleMatrix = superArray(10,10);
+console.log(bosMatrix(exampleMatrix));
 // ## Student Score
 
-// The professor records the scores of every student in each test. The record has following format:
-
+// The professor records the scores of every student in each test.
+// All these scores are stored in an array, for example:
 // ```javascript
-// { 
-//     test: 1, // the test id
-//     name: 'John', 
-//     age: 27, 
-//     gender: 'male', 
-//     score: 90 
-// }
-// ```
-
-// All these scores are stored in an array:
-
-// For example:
-
-// ```javascript
-
 
 var exampleScores = [
     { test: 1, name: 'John', age: 27, gender: 'male', score: 90 },
@@ -93,48 +81,66 @@ var exampleScores = [
 
 // Calculate the overall average score
 
+//Calculates the average of a given array of numbers (simple - doesn't handle errors etc)
 findAverage = (array) => {
 	let total = 0;
 	array.forEach(x => total += x);
 	return total/(array.length);
 } 
 
-fillArray = (array) => {
+//Fills an array with scores of a selected object - implies there is a "score" property
+fillScoresArray = (array) => {
 	let filledArray = [];
-	for (i=0; i<exampleScores.length; i++) {
+	for (i=0; i<array.length; i++) {
 		filledArray[i] = array[i].score;
 	}
 	return filledArray;
 }
-
-var scoresArray = fillArray(exampleScores);
-findAverage(scoresArray); //89.1666666...
-
-
-
-
+//Calculate the overall average score (LOGGED BELOW, LAST FUNCTION!)
+avgScore = (array) => {
+  let scoresArray = findAverage(fillScoresArray(array))
+  return scoresArray;
+};
+const exampleAvgScore = avgScore(exampleScores);
 // ### Question 2
 
 // Calculate the overall average score for all male student
-maleScores = (array) => {
-  let maleScore = 0
-  let maleScoresArray = 
-    fillArray(array
-      .filter(student => student.gender = 'male')
-    );
-  return maleScore += findAverage(maleScoresArray); 
+
+// Create a function to take into account any gender input, 
+// implying their is a 'gender' property in the passed objects
+avgGenderScores = (array, genderinput) => {
+  let genderScoresArray = fillScoresArray(
+    array.filter(student => student.gender == genderinput));
+  let avgGenderScore = findAverage(genderScoresArray);
+  return avgGenderScore;
 }
-//Run the function on exampleScores and log it:
-console.log(maleScores(exampleScores));
+
+
 
 // ### Question 3
 
 // Calculate the average score for each test
 
+//Create a function to pass the test ID as a parameter
+avgTestidScores = (array, testid) => {
+  // create an array filled with the corresponding test id's objects scores
+  let idScoresArray = fillScoresArray(
+    array.filter(student => student.test == testid)
+    );
+  // calculate the average and return it. 
+  let avgTestScore = findAverage(idScoresArray);
+  return avgTestScore;
+}
 
-var testidScoresArray = 
-  fillArray(exampleScores
-    .filter(student => student.test = 1)
-  );
+//Show scores after asking for user input:
+callScores = (array) => {  
+  console.log(`The average score is ${avgScore(array)}.`);
 
-findAverage(testidScoresArray);
+  let testId = prompt("Which test ids do you want to check?");
+  console.log(`The average score for the test id ${testId} is ${avgTestidScores(array, testId)}`);
+
+  let gender = prompt("Which student gender would you like to check? //hint: male");
+  console.log(`The average score of male students is ${avgGenderScores(array, gender)}.`);
+};
+// Call the scores for exampleScores:
+console.log(callScores(exampleScores));
