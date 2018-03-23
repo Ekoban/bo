@@ -57,7 +57,7 @@ superArray = (rows, columns) => {
 let userRows = prompt("How many rows?"); //10 in the example
 let userColumns = prompt("How many columns?"); //10 in the example
 var json = { ...superArray(userRows, userColumns)};
-
+console.log(json);
 // ## Student Score
 
 // The professor records the scores of every student in each test. The record has following format:
@@ -116,13 +116,25 @@ findAverage(scoresArray); //89.1666666...
 // ### Question 2
 
 // Calculate the overall average score for all male student
+maleScores = (array) => {
+  let maleScore = 0
+  let maleScoresArray = 
+    fillArray(array
+      .filter(student => student.gender = 'male')
+    );
+  return maleScore += findAverage(maleScoresArray); 
+}
+//Run the function on exampleScores and log it:
+console.log(maleScores(exampleScores));
 
-var maleScoresArray = 
-	fillArray(exampleScores
-		.filter(student => student.gender = 'male')
-	);
-findAverage(maleScoresArray);
 // ### Question 3
 
 // Calculate the average score for each test
 
+
+var testidScoresArray = 
+  fillArray(exampleScores
+    .filter(student => student.test = 1)
+  );
+
+findAverage(testidScoresArray);
