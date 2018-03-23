@@ -1,1 +1,1 @@
-# bo
+# bo's JS exercises
